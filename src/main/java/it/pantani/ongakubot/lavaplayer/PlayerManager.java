@@ -7,10 +7,11 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import it.pantani.ongakubot.CommandContext;
-import net.dv8tion.jda.api.EmbedBuilder;
+import it.pantani.ongakubot.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
+import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -41,36 +42,33 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(String commandName, CommandContext context, String trackUrl, boolean silent) {
-        final GuildMusicManager musicManager = this.getMusicManager(context.getGuild());
+    public void loadAndPlay(InteractionHook hook, Guild guild, String trackUrl) {
+        final GuildMusicManager musicManager = this.getMusicManager(guild);
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
                 musicManager.scheduler.queue(track);
 
-                if(!silent) {
-                    EmbedBuilder eb = new EmbedBuilder();
-                    eb.setTitle(commandName.toUpperCase() + " " + "COMMAND");
-                    eb.setColor(Color.GREEN);
-                    eb.setDescription("Added to the queue: `" + track.getInfo().title + "` di `" + track.getInfo().author + "`");
-                    eb.setFooter("Ongaku Bot");
-                    context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(false).queue();
-                }
+                hook.sendMessageEmbeds(
+                    Utils.createEmbed("play", Color.GREEN, "Added to the queue: [" + track.getInfo().title + "](" + track.getInfo().uri + ") di `" + track.getInfo().author + "`"))
+                    .addActionRow(
+                        Button.success("rewind", "↩️ Rewind"),
+                        Button.danger("stop", "⏹️ Remove"),
+                        Button.primary("pause", "⏯️ Resume/Pause"),
+                        Button.secondary("skip", "⏭️ Skip"),
+                        Button.secondary("queue", "⏬ Queue")
+                    )
+                    .setEphemeral(false)
+                    .queue();
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 final List<AudioTrack> tracks = playlist.getTracks();
 
-                if(!silent) {
-                    EmbedBuilder eb = new EmbedBuilder();
-                    eb.setTitle(commandName.toUpperCase() + " " + "COMMAND");
-                    eb.setColor(Color.GREEN);
-                    eb.setDescription("In aggiunta alla coda: `" + tracks.size() + "` tracce dalla playlist `" + trackUrl.replace("ytsearch:", "") + "`");
-                    eb.setFooter("Ongaku Bot");
-                    context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-                }
+                hook.sendMessageEmbeds(
+                    Utils.createEmbed("play", Color.GREEN, "Added to the queue: `" + tracks.size() + "` tracks from the playlist `" + trackUrl.replace("ytsearch:", "") + "`")).queue();
 
                 for (final AudioTrack track : tracks) {
                     musicManager.scheduler.queue(track);
@@ -79,17 +77,17 @@ public class PlayerManager {
 
             @Override
             public void noMatches() {
-                //
+                hook.sendMessageEmbeds(Utils.createEmbed("play", Color.RED, "Cannot obtain audio source.")).queue();
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                //
+                hook.sendMessageEmbeds(Utils.createEmbed("play", Color.RED, "Loading failed.")).queue();
             }
         });
     }
 
-    public void loadAndPlay(GuildVoiceState guildVoiceState, String trackUrl) {
+    public void loadAndPlay(GuildVoiceState guildVoiceState, String trackUrl) { // da console
         final GuildMusicManager musicManager = this.getMusicManager(guildVoiceState.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {

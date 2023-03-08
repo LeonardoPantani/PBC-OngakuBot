@@ -5,6 +5,9 @@
 
 package it.pantani.ongakubot;
 
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -12,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface CommandInterface {
-    void handle(CommandContext context, HashMap<String, OptionMapping> args);
+    Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller);
 
     String getName();
 

@@ -6,33 +6,28 @@
 package it.pantani.ongakubot;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import it.pantani.ongakubot.commands.Listener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 public class OngakuBot {
-    public static long startTime;
-    public static JDA jda;
+    public static final long startTime = System.currentTimeMillis();
+    private static final Dotenv config = Dotenv.configure().filename(".env").load();
 
     public OngakuBot() throws InterruptedException {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         Thread inputHandler = new Thread(consoleHandler);
 
-        startTime = System.currentTimeMillis();
         System.out.println("> Attivazione del bot...");
-
-        Dotenv config = Dotenv.configure().filename(".env").load();
 
         JDABuilder jdaBuilder = JDABuilder.createDefault(config.get("BOT_TOKEN"))
                 .setStatus(OnlineStatus.ONLINE)
-                .addEventListeners(new Listener(consoleHandler))
                 .addEventListeners(new CommandManager())
                 .setActivity(Activity.listening("/help"));
 
         // creo il jda
-        jda = jdaBuilder.build();
+        JDA jda = jdaBuilder.build();
 
         // aspetto la preparazione del bot
         jda.awaitReady();
@@ -47,6 +42,10 @@ public class OngakuBot {
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getConfigValue(String key) {
+        return config.get(key);
     }
 
     public static void main(String[] args) throws InterruptedException {

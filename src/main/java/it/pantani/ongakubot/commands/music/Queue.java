@@ -8,11 +8,13 @@ package it.pantani.ongakubot.commands.music;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import it.pantani.ongakubot.CommandContext;
 import it.pantani.ongakubot.CommandInterface;
+import it.pantani.ongakubot.Utils;
 import it.pantani.ongakubot.lavaplayer.GuildMusicManager;
 import it.pantani.ongakubot.lavaplayer.PlayerManager;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.awt.*;
@@ -25,33 +27,28 @@ import static it.pantani.ongakubot.Utils.formatTime;
 
 public class Queue implements CommandInterface {
     @Override
-    public void handle(CommandContext context, HashMap<String, OptionMapping> args) {
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(context.getGuild());
+    public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
         final AudioPlayer audioPlayer = musicManager.audioPlayer;
         final BlockingQueue<AudioTrack> queue = musicManager.scheduler.queue;
         final AudioTrack currentTrack = audioPlayer.getPlayingTrack();
 
         if (queue.isEmpty() && currentTrack == null) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.BLUE);
-            eb.setDescription("Queue is empty.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.BLUE, "Queue is empty.")).queue();
+            return Utils.Status.HANDLE_INFO;
         }
 
         final int trackCount = Math.min(queue.size(), 20);
         final List<AudioTrack> trackList = new ArrayList<>(queue);
         final StringBuilder ret = new StringBuilder();
-        ret.append("** Current Queue **");
+        ret.append("** Current Queue **\n");
 
         if(currentTrack != null) {
             AudioTrackInfo ati = currentTrack.getInfo();
 
-            ret.append(":point_right: ").append(" `");
+            ret.append(":point_right: ").append(" [");
             if(ati.title.length() > 76) { ret.append(ati.title, 0, 75); ret.append("..."); } else { ret.append(ati.title); }
-            ret.append("` by `");
+            ret.append("](").append(ati.uri).append(") by `");
             if(ati.author.length() > 76) { ret.append(ati.author, 0, 75); ret.append("..."); } else { ret.append(ati.author); }
             ret.append("` [`").append(formatTime(ati.length)).append("` duration] :notes:\n");
         }
@@ -60,9 +57,9 @@ public class Queue implements CommandInterface {
             final AudioTrack track = trackList.get(i);
             final AudioTrackInfo info = track.getInfo();
 
-            ret.append('#').append(i + 1).append(" `");
+            ret.append('#').append(i + 1).append("  [");
             if(info.title.length() > 76) { ret.append(info.title, 0, 75); ret.append("..."); } else { ret.append(info.title); }
-            ret.append("` by `");
+            ret.append("](").append(info.uri).append(") by `");
             if(info.author.length() > 76) { ret.append(info.author, 0, 75); ret.append("..."); } else { ret.append(info.author); }
             ret.append("` [`").append(formatTime(track.getDuration())).append("` duration]\n");
         }
@@ -71,12 +68,9 @@ public class Queue implements CommandInterface {
             ret.append("And `").append(trackList.size() - trackCount).append("` others...");
         }
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-        eb.setColor(Color.GREEN);
-        eb.setDescription(ret);
-        eb.setFooter("Ongaku Bot");
-        context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
+        hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, ret.toString())).queue();
+
+        return Utils.Status.HANDLE_OK;
     }
 
     @Override

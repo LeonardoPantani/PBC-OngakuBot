@@ -5,11 +5,21 @@
 
 package it.pantani.ongakubot;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+
+import java.awt.*;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
+    public enum Status {
+        HANDLE_OK,
+        HANDLE_ERROR,
+        HANDLE_INFO
+    }
+
     public static boolean isURL(String url) {
         try {
             (new java.net.URL(url)).openStream().close();
@@ -34,5 +44,24 @@ public class Utils {
         final long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static MessageEmbed createEmbed(String commandName, Color color, String text) {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle(commandName.toUpperCase() + " " + "COMMAND");
+        eb.setColor(color);
+        eb.setDescription(text);
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"));
+
+        return eb.build();
+    }
+
+    public static MessageEmbed createEmbed(Color color, String text) {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setColor(color);
+        eb.setDescription(text);
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"));
+
+        return eb.build();
     }
 }

@@ -6,6 +6,7 @@
 package it.pantani.ongakubot.commands.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import it.pantani.ongakubot.CommandInterface;
 import it.pantani.ongakubot.Utils;
 import it.pantani.ongakubot.lavaplayer.GuildMusicManager;
@@ -15,23 +16,14 @@ import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
-public class Volume implements CommandInterface {
+public class Rewind implements CommandInterface {
     @Override
     public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
-        int volume = args.get("volume").getAsInt();
-        if(volume < 0 || volume > 200) {
-            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "Volume value must be between `" + 0 + "` and `" + 200 + "`")).queue();
-            return Utils.Status.HANDLE_ERROR;
-        }
-
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         final GuildVoiceState callerVoiceState = caller.getVoiceState();
 
@@ -40,31 +32,33 @@ public class Volume implements CommandInterface {
 
         if (!Objects.equals(callerVoiceState.getChannel(), selfVoiceState.getChannel())) {
             hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "I must be in your voice channel for this command to work.")).queue();
-            return Utils.Status.HANDLE_ERROR;
+            return Utils.Status.HANDLE_OK;
         }
 
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
         final AudioPlayer audioPlayer = musicManager.audioPlayer;
 
-        hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Volume set to `" + volume + "` (before was `" + audioPlayer.getVolume() + "`)")).queue();
-        audioPlayer.setVolume(volume);
+        if(audioPlayer.getPlayingTrack() == null) {
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.BLUE, "There are not any tracks currently playing.")).queue();
+            return Utils.Status.HANDLE_INFO;
+        }
+
+        AudioTrack toRewind = musicManager.audioPlayer.getPlayingTrack().makeClone();
+        musicManager.audioPlayer.stopTrack();
+        musicManager.audioPlayer.playTrack(toRewind);
+
+        hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Rewound current playing track.")).queue();
+
         return Utils.Status.HANDLE_OK;
     }
 
     @Override
     public String getName() {
-        return "volume";
+        return "rewind";
     }
 
     @Override
     public String getHelp() {
-        return "Sets the volume of this bot for all users inside the channel.";
-    }
-
-    @Override
-    public List<OptionData> getArgs() {
-        return List.of(
-                new OptionData(OptionType.INTEGER, "volume", "Volume between 0 and 200 (100 is default)", true)
-        );
+        return "Rewinds current track to its beginning.";
     }
 }

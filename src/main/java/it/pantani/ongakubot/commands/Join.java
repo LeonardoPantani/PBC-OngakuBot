@@ -5,14 +5,14 @@
 
 package it.pantani.ongakubot.commands;
 
-import it.pantani.ongakubot.CommandContext;
 import it.pantani.ongakubot.CommandInterface;
-import net.dv8tion.jda.api.EmbedBuilder;
+import it.pantani.ongakubot.Utils;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -21,46 +21,31 @@ import java.util.HashMap;
 
 public class Join implements CommandInterface {
     @Override
-    public void handle(CommandContext context, HashMap<String, OptionMapping> args) {
-        final MessageChannel channel = context.getEvent().getChannel();
-        final Member self = context.getGuild().getSelfMember();
+    public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
         final GuildVoiceState selfVoiceState = self.getVoiceState();
+        final GuildVoiceState callerVoiceState = caller.getVoiceState();
 
-        final Member member = context.getEvent().getMember();
-        final GuildVoiceState memberVoiceState = member.getVoiceState();
+        assert selfVoiceState != null;
+        assert callerVoiceState != null;
 
-        if (!memberVoiceState.inAudioChannel()) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.RED);
-            eb.setDescription("You must be in a voice channel for this command to work.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
+        if (!callerVoiceState.inAudioChannel()) {
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "You must be in a voice channel for this command to work.")).queue();
+            return Utils.Status.HANDLE_ERROR;
         }
 
-        final AudioManager audioManager = context.getGuild().getAudioManager();
-        final AudioChannel memberChannel = memberVoiceState.getChannel();
+        final AudioManager audioManager = guild.getAudioManager();
+        final AudioChannel callerChannel = callerVoiceState.getChannel();
+
+        assert callerChannel != null;
 
         try {
-            audioManager.openAudioConnection(memberChannel);
-
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.GREEN);
-            eb.setDescription("I joined `" + memberChannel.getName() + "` channel.");
-            eb.setFooter("Ongaku Bot");
-
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
+            audioManager.openAudioConnection(callerChannel);
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "I joined `" + callerChannel.getName() + "` channel.")).queue();
         } catch(InsufficientPermissionException e) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.RED);
-            eb.setDescription("Cannot join `" + memberChannel.getName() + "` channel because I do not have enough permissions.");
-            eb.setFooter("Ongaku Bot");
-
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "Cannot join `" + callerChannel.getName() + "` channel because I do not have enough permissions.")).queue();
         }
+
+        return Utils.Status.HANDLE_OK;
     }
 
     @Override

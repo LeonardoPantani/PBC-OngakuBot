@@ -8,80 +8,47 @@ package it.pantani.ongakubot.commands.music;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import it.pantani.ongakubot.CommandContext;
 import it.pantani.ongakubot.CommandInterface;
+import it.pantani.ongakubot.Utils;
 import it.pantani.ongakubot.lavaplayer.GuildMusicManager;
 import it.pantani.ongakubot.lavaplayer.PlayerManager;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class NowPlaying implements CommandInterface {
     @Override
-    public void handle(CommandContext context, HashMap<String, OptionMapping> args) {
-        final Member self = context.getGuild().getSelfMember();
+    public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
         final GuildVoiceState selfVoiceState = self.getVoiceState();
+        final GuildVoiceState callerVoiceState = caller.getVoiceState();
 
-        if (!selfVoiceState.inAudioChannel()) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.RED);
-            eb.setDescription("I must be inside a voice channel for this command to work.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
+        assert selfVoiceState != null;
+        assert callerVoiceState != null;
+
+        if (!Objects.equals(callerVoiceState.getChannel(), selfVoiceState.getChannel())) {
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "I must be in your voice channel for this command to work.")).queue();
+            return Utils.Status.HANDLE_OK;
         }
 
-        final Member member = context.getEvent().getMember();
-        final GuildVoiceState memberVoiceState = member.getVoiceState();
-
-        if (!memberVoiceState.inAudioChannel()) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.RED);
-            eb.setDescription("You must be inside a voice channel for this command to work.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
-        }
-
-        if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.RED);
-            eb.setDescription("You must be in my voice channel for this command to work.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
-        }
-
-
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(context.getGuild());
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
         final AudioPlayer audioPlayer = musicManager.audioPlayer;
         final AudioTrack track = audioPlayer.getPlayingTrack();
 
         if(track == null) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-            eb.setColor(Color.BLUE);
-            eb.setDescription("There are not any tracks currently playing.");
-            eb.setFooter("Ongaku Bot");
-            context.getEvent().getHook().sendMessageEmbeds(eb.build()).setEphemeral(true).queue();
-            return;
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.BLUE, "There are not any tracks currently playing.")).queue();
+            return Utils.Status.HANDLE_INFO;
         }
-
         final AudioTrackInfo info = track.getInfo();
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle(getName().toUpperCase() + " " + "COMMAND");
-        eb.setColor(Color.GREEN);
-        eb.setDescription("Currently playing `" + info.title + "` by `" + info.author + "` (Link: <" + info.uri + ">)");
-        eb.setFooter("Ongaku Bot");
-        context.getEvent().getHook().sendMessageEmbeds(eb.build()).queue();
+        hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Currently playing [" + info.title + "](" + info.uri + ") by `" + info.author + "`")).queue();
+
+        return Utils.Status.HANDLE_OK;
     }
 
     @Override

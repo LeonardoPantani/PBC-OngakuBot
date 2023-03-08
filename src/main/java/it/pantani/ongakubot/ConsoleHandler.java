@@ -240,13 +240,14 @@ public class ConsoleHandler implements Runnable {
 
     public void end() {
         stop = true;
-        Robot robot = null;
+        Robot robot;
         try {
             robot = new Robot();
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
         } catch(AWTException e) {
             e.printStackTrace();
         }
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
     }
 }
