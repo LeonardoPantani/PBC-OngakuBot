@@ -3,10 +3,14 @@
  * https://github.com/LeonardoPantani
  */
 
-package it.pantani.ongakubot;
+package it.pantani.ongakubot.listeners;
 
+import it.pantani.ongakubot.CommandInterface;
+import it.pantani.ongakubot.OngakuBot;
+import it.pantani.ongakubot.Utils;
 import it.pantani.ongakubot.commands.Help;
 import it.pantani.ongakubot.commands.Join;
+import it.pantani.ongakubot.commands.Ping;
 import it.pantani.ongakubot.commands.Quit;
 import it.pantani.ongakubot.commands.music.*;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -32,6 +36,7 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new Help());
         addCommand(new Join());
         addCommand(new Quit());
+        addCommand(new Ping());
 
         addCommand(new Play());
         addCommand(new Stop());
@@ -42,6 +47,8 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new Volume());
         addCommand(new Queue());
         addCommand(new Rewind());
+        addCommand(new Earrape());
+        addCommand(new Filter());
     }
 
     private void addCommand(CommandInterface cmd) {

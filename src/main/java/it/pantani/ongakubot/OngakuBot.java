@@ -6,6 +6,8 @@
 package it.pantani.ongakubot;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import it.pantani.ongakubot.listeners.CommandManager;
+import it.pantani.ongakubot.listeners.GuildManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -24,6 +26,7 @@ public class OngakuBot {
         JDABuilder jdaBuilder = JDABuilder.createDefault(config.get("BOT_TOKEN"))
                 .setStatus(OnlineStatus.ONLINE)
                 .addEventListeners(new CommandManager())
+                .addEventListeners(new GuildManager())
                 .setActivity(Activity.listening("/help"));
 
         // creo il jda

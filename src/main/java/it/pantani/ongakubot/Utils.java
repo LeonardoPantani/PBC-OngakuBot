@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -38,20 +40,33 @@ public class Utils {
         return input;
     }
 
-    public static String formatTime(long timeInMillis) {
+    public static String formatTime(long timeInMillis, String separator) {
         final long hours = timeInMillis / TimeUnit.HOURS.toMillis(1);
+
+        if(hours == 2562047788015L) {
+            return null;
+        }
+
         final long minutes = timeInMillis / TimeUnit.MINUTES.toMillis(1);
         final long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%02d" + separator + "%02d" + separator + "%02d", hours, minutes, seconds);
     }
 
-    public static MessageEmbed createEmbed(String commandName, Color color, String text) {
+
+
+    public static String formatDate(long timeInMillis, String separator) {
+        Date currentDate = new Date(timeInMillis);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy" + separator + "MM" + separator + "dd" + separator + "" + separator + "HH" + separator + "mm" + separator + "ss");
+        return dateFormat.format(currentDate);
+    }
+
+    public static MessageEmbed createEmbed(String title, Color color, String text) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle(commandName.toUpperCase() + " " + "COMMAND");
+        eb.setTitle(title.toUpperCase());
         eb.setColor(color);
         eb.setDescription(text);
-        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"));
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/333c7944f8b947f1770352d424f6b6f3.webp");
 
         return eb.build();
     }
@@ -60,7 +75,7 @@ public class Utils {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(color);
         eb.setDescription(text);
-        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"));
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/333c7944f8b947f1770352d424f6b6f3.webp");
 
         return eb.build();
     }

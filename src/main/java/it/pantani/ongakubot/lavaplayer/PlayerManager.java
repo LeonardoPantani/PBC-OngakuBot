@@ -67,11 +67,37 @@ public class PlayerManager {
             public void playlistLoaded(AudioPlaylist playlist) {
                 final List<AudioTrack> tracks = playlist.getTracks();
 
-                hook.sendMessageEmbeds(
-                    Utils.createEmbed("play", Color.GREEN, "Added to the queue: `" + tracks.size() + "` tracks from the playlist `" + trackUrl.replace("ytsearch:", "") + "`")).queue();
-
-                for (final AudioTrack track : tracks) {
+                if(playlist.isSearchResult()) { // se è il risultato della ricerca ne carico una, altrimenti tutte
+                    AudioTrack track = tracks.get(0);
                     musicManager.scheduler.queue(track);
+
+                    hook.sendMessageEmbeds(
+                                    Utils.createEmbed("play", Color.GREEN, "Added to the queue: [" + track.getInfo().title + "](" + track.getInfo().uri + ") di `" + track.getInfo().author + "`"))
+                            .addActionRow(
+                                    Button.success("rewind", "↩️ Rewind"),
+                                    Button.danger("stop", "⏹️ Remove"),
+                                    Button.primary("pause", "⏯️ Resume/Pause"),
+                                    Button.secondary("skip", "⏭️ Skip"),
+                                    Button.secondary("queue", "⏬ Queue")
+                            )
+                            .setEphemeral(false)
+                            .queue();
+                } else { // carico tutto
+                    for (final AudioTrack track : tracks) {
+                        musicManager.scheduler.queue(track);
+                    }
+
+                    hook.sendMessageEmbeds(
+                            Utils.createEmbed("play", Color.GREEN, "Added to the queue `" + tracks.size() + "` tracks from the playlist `" + trackUrl.replace("ytsearch:", "") + "`"))
+                            .addActionRow(
+                                    Button.success("rewind", "↩️ Rewind"),
+                                    Button.danger("stop", "⏹️ Remove"),
+                                    Button.primary("pause", "⏯️ Resume/Pause"),
+                                    Button.secondary("skip", "⏭️ Skip"),
+                                    Button.secondary("queue", "⏬ Queue")
+                            )
+                            .setEphemeral(false)
+                            .queue();
                 }
             }
 

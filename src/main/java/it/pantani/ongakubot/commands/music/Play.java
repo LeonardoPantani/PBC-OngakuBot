@@ -5,9 +5,12 @@
 
 package it.pantani.ongakubot.commands.music;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import it.pantani.ongakubot.CommandInterface;
 import it.pantani.ongakubot.Utils;
 import it.pantani.ongakubot.commands.Join;
+import it.pantani.ongakubot.lavaplayer.GuildMusicManager;
 import it.pantani.ongakubot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
@@ -32,9 +35,25 @@ public class Play implements CommandInterface {
         assert selfVoiceState != null;
         assert callerVoiceState != null;
 
-        if (selfVoiceState.getChannel() == null || callerVoiceState.getChannel() == null || !callerVoiceState.getChannel().equals(selfVoiceState.getChannel())) { // se l'utente e il bot non sono nello stesso canale
-            if(new Join().handle(hook, new HashMap<>(), guild, self, caller) != Utils.Status.HANDLE_OK) { // provo ad entrare, se non ci riesco mostro avviso TODO: ottimizzare
-                return Utils.Status.HANDLE_ERROR;
+        if(callerVoiceState.getChannel() == null) { // se l'utente non è in nessun canale
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "You must be inside a voice channel for this command to work.")).queue();
+            return Utils.Status.HANDLE_ERROR;
+        }
+
+        if(selfVoiceState.getChannel() == null) { // se il bot non è in nessun canale lo faccio entrare
+            new Join().handle(hook, new HashMap<>(), guild, self, caller, false);
+        } else { // il bot è già in un canale
+            if(!callerVoiceState.getChannel().equals(selfVoiceState.getChannel())) { // se non è nello stesso canale
+                final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
+                final AudioPlayer audioPlayer = musicManager.audioPlayer;
+                final AudioTrack track = audioPlayer.getPlayingTrack();
+
+                if(track != null) { // se il bot è in un canale diverso dall'utente e sta riproducendo allora mostro un errore
+                    hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "This command does not work while I am playing a track in another channel.")).queue();
+                    return Utils.Status.HANDLE_ERROR;
+                } else { // se non sto riproducendo nulla nell'altro canale allora mi sposto
+                    new Join().handle(hook, new HashMap<>(), guild, self, caller, false);
+                }
             }
         }
 

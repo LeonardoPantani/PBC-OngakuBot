@@ -45,23 +45,35 @@ public class Queue implements CommandInterface {
 
         if(currentTrack != null) {
             AudioTrackInfo ati = currentTrack.getInfo();
+            String duration = formatTime(ati.length, ":");
 
             ret.append(":point_right: ").append(" [");
             if(ati.title.length() > 76) { ret.append(ati.title, 0, 75); ret.append("..."); } else { ret.append(ati.title); }
             ret.append("](").append(ati.uri).append(") by `");
             if(ati.author.length() > 76) { ret.append(ati.author, 0, 75); ret.append("..."); } else { ret.append(ati.author); }
-            ret.append("` [`").append(formatTime(ati.length)).append("` duration] :notes:\n");
+            ret.append("` [`");
+            if(duration != null)
+                ret.append(duration);
+            else
+                ret.append("LIVE");
+            ret.append("`] :notes:\n");
         }
 
         for (int i = 0; i < trackCount; i++) {
             final AudioTrack track = trackList.get(i);
             final AudioTrackInfo info = track.getInfo();
+            final String duration = formatTime(track.getDuration(), ":");
 
             ret.append('#').append(i + 1).append("  [");
             if(info.title.length() > 76) { ret.append(info.title, 0, 75); ret.append("..."); } else { ret.append(info.title); }
             ret.append("](").append(info.uri).append(") by `");
             if(info.author.length() > 76) { ret.append(info.author, 0, 75); ret.append("..."); } else { ret.append(info.author); }
-            ret.append("` [`").append(formatTime(track.getDuration())).append("` duration]\n");
+            ret.append("` [`");
+            if(duration != null)
+                ret.append(duration);
+            else
+                ret.append("LIVE");
+            ret.append("`]\n");
         }
 
         if (trackList.size() > trackCount) {
