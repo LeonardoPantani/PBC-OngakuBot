@@ -10,6 +10,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import it.pantani.ongakubot.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
+import net.dv8tion.jda.api.entities.channel.unions.GuildChannelUnion;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
@@ -61,6 +62,13 @@ public class PlayerManager {
                     )
                     .setEphemeral(false)
                     .queue();
+
+                // invia i log al canale (se già impostato)
+                GuildChannelUnion channel = (GuildChannelUnion) Utils.logChannels.get(guild.getIdLong());
+                if(channel != null) {
+                    channel.asTextChannel().sendMessageEmbeds(
+                        Utils.createEmbed("play", Color.BLUE, hook.getInteraction().getUser().getName() + " requested to play: [" + track.getInfo().title + "](" + track.getInfo().uri + ") di `" + track.getInfo().author + "`")).queue();
+                }
             }
 
             @Override

@@ -6,6 +6,7 @@
 package it.pantani.ongakubot;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvException;
 import it.pantani.ongakubot.listeners.CommandManager;
 import it.pantani.ongakubot.listeners.GuildManager;
 import net.dv8tion.jda.api.JDA;
@@ -15,7 +16,7 @@ import net.dv8tion.jda.api.entities.Activity;
 
 public class OngakuBot {
     public static final long startTime = System.currentTimeMillis();
-    private static final Dotenv config = Dotenv.configure().filename(".env").load();
+    private static Dotenv config;
 
     public OngakuBot() throws InterruptedException {
         ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -52,6 +53,12 @@ public class OngakuBot {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        try {
+            config = Dotenv.configure().filename("env").load();
+        } catch (DotenvException e) {
+            System.err.println("[!] Copy the env.example file in a 'env' file in the same folder and edit it.");
+        }
+
         OngakuBot bot = new OngakuBot();
     }
 }

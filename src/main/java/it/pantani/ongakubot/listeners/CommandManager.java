@@ -49,6 +49,8 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new Rewind());
         addCommand(new Earrape());
         addCommand(new Filter());
+
+        addCommand(new SetLogChannel());
     }
 
     private void addCommand(CommandInterface cmd) {

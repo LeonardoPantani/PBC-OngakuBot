@@ -7,10 +7,12 @@ package it.pantani.ongakubot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.channel.unions.GuildChannelUnion;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +23,8 @@ public class Utils {
         HANDLE_ERROR,
         HANDLE_INFO
     }
+
+    public static HashMap<Long, Object> logChannels = new HashMap<Long, Object>();
 
     public static boolean isURL(String url) {
         try {
@@ -66,7 +70,7 @@ public class Utils {
         eb.setTitle(title.toUpperCase());
         eb.setColor(color);
         eb.setDescription(text);
-        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/333c7944f8b947f1770352d424f6b6f3.webp");
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/571bd8a833956617ebf0506b075832d2.png");
 
         return eb.build();
     }
@@ -75,7 +79,7 @@ public class Utils {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(color);
         eb.setDescription(text);
-        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/333c7944f8b947f1770352d424f6b6f3.webp");
+        eb.setFooter(OngakuBot.getConfigValue("BOT_NAME") + " v" + OngakuBot.getConfigValue("BOT_VERSION") + " | Author: " + OngakuBot.getConfigValue("BOT_AUTHOR"), "https://cdn.discordapp.com/avatars/933087337196441624/571bd8a833956617ebf0506b075832d2.png");
 
         return eb.build();
     }
