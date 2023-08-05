@@ -25,7 +25,7 @@ public interface CommandInterface {
         return List.of();
         /*
         return Arrays.asList(
-                    new OptionData(OptionType.STRING, "nome_argomento", "descrizione_argomento", true)
+                    new OptionData(OptionType.STRING, "arg_name", "arg_desc", true)
             );
          */
     }

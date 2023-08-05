@@ -1,7 +1,7 @@
 package it.pantani.ongakubot.commands.music;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import it.pantani.ongakubot.CommandInterface;
+import it.pantani.ongakubot.DatabaseManager;
 import it.pantani.ongakubot.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -20,9 +20,13 @@ public class SetLogChannel implements CommandInterface {
     public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
         GuildChannelUnion channel = args.get("channel").getAsChannel();
 
-        Utils.logChannels.put(guild.getIdLong(), channel);
-
-        hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Set log channel to `" + channel.getName() + "`.")).queue();
+        DatabaseManager.setLogChannel(guild.getId(), channel.asTextChannel().getId(), result -> {
+            if(result.equals("true")) {
+                hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Set log channel to `" + channel.getName() + "`.")).queue();
+            } else {
+                hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "Log channel not set due to a error.")).queue();
+            }
+        });
 
         return Utils.Status.HANDLE_OK;
     }

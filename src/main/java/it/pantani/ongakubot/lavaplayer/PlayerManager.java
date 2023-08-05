@@ -7,10 +7,11 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import it.pantani.ongakubot.DatabaseManager;
 import it.pantani.ongakubot.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.channel.unions.GuildChannelUnion;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
@@ -64,11 +65,13 @@ public class PlayerManager {
                     .queue();
 
                 // invia i log al canale (se già impostato)
-                GuildChannelUnion channel = (GuildChannelUnion) Utils.logChannels.get(guild.getIdLong());
-                if(channel != null) {
-                    channel.asTextChannel().sendMessageEmbeds(
-                        Utils.createEmbed("play", Color.BLUE, hook.getInteraction().getUser().getName() + " requested to play: [" + track.getInfo().title + "](" + track.getInfo().uri + ") di `" + track.getInfo().author + "`")).queue();
-                }
+                DatabaseManager.getLogChannel(guild.getId(), logChannelID -> {
+                    TextChannel logChannel = guild.getTextChannelById(logChannelID);
+                    if (logChannel != null) {
+                        logChannel.sendMessageEmbeds(
+                                Utils.createEmbed("play", Color.BLUE, hook.getInteraction().getUser().getName() + " requested to play: [" + track.getInfo().title + "](" + track.getInfo().uri + ") di `" + track.getInfo().author + "`")).queue();
+                    }
+                });
             }
 
             @Override

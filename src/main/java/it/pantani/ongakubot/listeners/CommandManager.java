@@ -29,9 +29,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ This class represents a CommandManager that handles various commands for the Discord bot.
+ */
 public class CommandManager extends ListenerAdapter {
     private final List<CommandInterface> commands = new ArrayList<>();
 
+    /**
+     Constructs a new CommandManager and adds various commands to its list.
+     */
     public CommandManager() {
         addCommand(new Help());
         addCommand(new Join());
@@ -51,8 +57,15 @@ public class CommandManager extends ListenerAdapter {
         addCommand(new Filter());
 
         addCommand(new SetLogChannel());
+        addCommand(new DeleteLogChannel());
     }
 
+    /**
+     Adds a command to the list of commands, checking for name conflicts.
+
+     @param cmd The command to add.
+     @throws IllegalArgumentException if a command with the same name already exists.
+     */
     private void addCommand(CommandInterface cmd) {
         boolean nameFound = this.commands.stream().anyMatch((it) -> it.getName().equalsIgnoreCase(cmd.getName()));
 
@@ -63,10 +76,20 @@ public class CommandManager extends ListenerAdapter {
         commands.add(cmd);
     }
 
+    /**
+     Returns the list of all registered commands.
+     @return The list of commands.
+     */
     public List<CommandInterface> getCommands() {
         return commands;
     }
 
+    /**
+     Finds and returns a command based on its name.
+
+     @param search The name of the command to search for.
+     @return The command with the specified name or null if not found.
+     */
     public CommandInterface getCommand(String search) {
         String searchLower = search.toLowerCase();
 
@@ -84,9 +107,10 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         super.onSlashCommandInteraction(event);
-        event.deferReply().setEphemeral(true).queue(); // specifico a discord che sto pensando
+        event.deferReply().setEphemeral(true).queue(); // Tell Discord we're thinking.
 
-        if(event.getGuild() == null) { // è un DM
+        if(event.getGuild() == null) { // It's a direct message (DM).
+            // Prompt the user to add the bot to a server.
             event.getHook().sendMessageEmbeds(Utils.createEmbed(Color.RED, "I cannot play music without being in a server. Please add me to your server by clicking the button below."))
                     .addActionRow(
                             Button.link("https://discord.com/api/oauth2/authorize?client_id=" + OngakuBot.getConfigValue("BOT_DISCORD_ID") + "&permissions=0&scope=bot", "Add bot to a server")
@@ -94,6 +118,7 @@ public class CommandManager extends ListenerAdapter {
             return;
         }
 
+        // Get the command and its arguments from the interaction.
         CommandInterface cmd = this.getCommand(event.getName());
         HashMap<String, OptionMapping> cmd_args = new HashMap<>();
         for(OptionMapping om : event.getOptions()) {
@@ -101,29 +126,36 @@ public class CommandManager extends ListenerAdapter {
         }
 
         if(cmd != null) {
+            // Handle the command based on the interaction details.
             cmd.handle(event.getHook(), cmd_args, event.getGuild(), event.getGuild().getSelfMember(), event.getInteraction().getMember());
         }
+
     }
 
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         super.onButtonInteraction(event);
-        event.deferReply().setEphemeral(true).queue(); // specifico a discord che sto pensando
+        event.deferReply().setEphemeral(true).queue(); // Tell Discord we're thinking.
         HashMap<String, OptionMapping> cmd_args = new HashMap<>();
 
-        if(event.getGuild() == null) { // è un DM
+        if(event.getGuild() == null) { // It's a direct message (DM).
+            // Prompt the user to add the bot to a server.
             event.getHook().sendMessageEmbeds(Utils.createEmbed(Color.RED, "I cannot play music without being in a server. Please add me to your server by clicking the button below."))
                     .addActionRow(
                             Button.link("https://discord.com/api/oauth2/authorize?client_id=" + OngakuBot.getConfigValue("BOT_DISCORD_ID") + "&permissions=0&scope=bot", "Add bot to a server")
                     ).queue();
         }
 
+        // Get the command and its arguments from the button interaction.
         CommandInterface cmd = this.getCommand(event.getComponentId());
         if(cmd != null) {
+            // Handle the command based on the button interaction details.
             cmd.handle(event.getHook(), cmd_args, event.getGuild(), event.getGuild().getSelfMember(), event.getInteraction().getMember());
         } else {
+            // Handle the case when the button interaction does not match any command.
             event.getHook().sendMessageEmbeds(Utils.createEmbed(Color.RED, "Wrong button interaction.")).queue();
         }
+
     }
 
     @Override
@@ -131,14 +163,16 @@ public class CommandManager extends ListenerAdapter {
         super.onGuildReady(event);
         List<CommandData> commandData = new ArrayList<>();
 
+        // Prepare command data for slash commands registration.
         for(CommandInterface cmd : commands) {
             commandData.add(Commands.slash(cmd.getName(), cmd.getHelp()).addOptions(cmd.getArgs()));
         }
         event.getJDA().updateCommands().addCommands(commandData).queue();
+
     }
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        System.out.println("> Bot pronto in " + (System.currentTimeMillis() - OngakuBot.startTime) + "ms.");
+        System.out.println("> Bot ready in " + (System.currentTimeMillis() - OngakuBot.startTime) + "ms.");
     }
 }
