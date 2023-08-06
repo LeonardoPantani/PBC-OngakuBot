@@ -20,9 +20,8 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
 import java.io.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 public class Earrape implements CommandInterface {
     private final ByteArrayOutputStream outputStream = null;
@@ -73,8 +72,8 @@ public class Earrape implements CommandInterface {
     }
 
     @Override
-    public java.util.List<OptionData> getArgs() {
-        return List.of(
+    public List<OptionData> getArgs() {
+        return Collections.singletonList(
                 new OptionData(OptionType.BOOLEAN, "state", "Activate or deactivate earrape mode", false)
         );
     }

@@ -10,25 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Added git ignore&#10;Translated major part of project in english&#10;Added database system, supports both mysql (remote) and sqlite (file)&#10;Removed old hashmap for log channels and replaced with db implementation&#10;&#10;TODO: create config file outside resources, finish translations and general code cleanup">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OngakuBot_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/DatabaseManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/DeleteLogChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/CommandInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/CommandInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/ConsoleHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/ConsoleHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/Join.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/Join.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Earrape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Earrape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Play.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/SetLogChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/SetLogChannel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/listeners/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/listeners/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Volume.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Volume.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/env" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/env.example" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/env.example" afterDir="false" />
     </list>
@@ -50,13 +44,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": -1
+}]]></component>
   <component name="ProjectId" id="2Svj7AVWHNeURZgOqRq2jkXsDa6" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -76,10 +70,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/leona/OneDrive/Documenti/IdeaProjects/PRIV-OngakuBot/src/main/resources",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.3402299",
+    "last_opened_file_path": "C:/Users/leona/OneDrive/Documenti/IdeaProjects/PRIV-OngakuBot/target/OngakuBot-1.2-jar-with-dependencies.jar",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3096491",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -96,13 +90,24 @@
       <recent name="it.pantani.ongakubot.commands.music" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn package" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Java">
     <configuration name="Java" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="it.pantani.ongakubot.OngakuBot" />
       <module name="OngakuBot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="JAR" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/OngakuBot_jar/OngakuBot.jar" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\leona\OneDrive\Documenti\IdeaProjects\PRIV-OngakuBot" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="PRIV-OngakuBot" />
@@ -117,6 +122,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Java" />
+      <item itemvalue="JAR Application.JAR" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -135,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690119195471</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added git ignore&#10;Translated major part of project in english&#10;Added database system, supports both mysql (remote) and sqlite (file)&#10;Removed old hashmap for log channels and replaced with db implementation&#10;&#10;TODO: create config file outside resources, finish translations and general code cleanup">
+      <option name="closed" value="true" />
+      <created>1691251358113</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691251358113</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnknownFeatures">

@@ -21,6 +21,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class Play implements CommandInterface {
 
     @Override
     public List<OptionData> getArgs() {
-        return List.of(
+        return Collections.singletonList(
                 new OptionData(OptionType.STRING, "url_or_text", "Url of resource or name to search", true)
         );
     }

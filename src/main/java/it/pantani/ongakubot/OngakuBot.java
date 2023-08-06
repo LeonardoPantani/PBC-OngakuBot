@@ -42,7 +42,7 @@ public class OngakuBot {
         if (getConfigValue("DB_TYPE").equalsIgnoreCase("sqlite")) {
             DatabaseManager.initializeDB(getConfigValue("DB_FILENAME"));
         } else if (getConfigValue("DB_TYPE").equalsIgnoreCase("mysql")) {
-            DatabaseManager.initializeDB(getConfigValue("DB_HOST"), getConfigValue("DB_NAME"), getConfigValue("DB_USERNAME"), getConfigValue("DB_PASSWORD"));
+            DatabaseManager.initializeDB(getConfigValue("DB_HOST"), Integer.parseInt(getConfigValue("DB_PORT")), getConfigValue("DB_NAME"), getConfigValue("DB_USERNAME"), getConfigValue("DB_PASSWORD"));
         } else {
             System.err.println("[!] env file contains an invalid value for the key 'DB_TYPE'. Accepted values are: sqlite, mysql");
             return;
@@ -52,7 +52,7 @@ public class OngakuBot {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         Thread inputHandler = new Thread(consoleHandler);
 
-        System.out.println("> Bot activation...");
+        System.out.println("> Preparing bot...");
 
         // Building the JDA (Java Discord API) instance
         JDABuilder jdaBuilder = JDABuilder.createDefault(getConfigValue("BOT_TOKEN"))

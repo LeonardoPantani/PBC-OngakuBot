@@ -27,9 +27,9 @@ public class DatabaseManager {
      * @param username The username for the MySQL server.
      * @param password The password for the MySQL server.
      */
-    public static void initializeDB(String host, String dbName, String username, String password) {
+    public static void initializeDB(String host, int port, String dbName, String username, String password) {
         // Construct the MySQLi database URL
-        databaseURL = "jdbc:mysql://" + host + "/?serverTimezone=UTC";
+        databaseURL = "jdbc:mysql://" + host + ":" + port + "/?serverTimezone=UTC";
 
         try {
             // Establish connection to the database

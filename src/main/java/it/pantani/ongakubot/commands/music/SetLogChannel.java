@@ -12,8 +12,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class SetLogChannel implements CommandInterface {
     @Override
@@ -43,7 +43,7 @@ public class SetLogChannel implements CommandInterface {
 
     @Override
     public java.util.List<OptionData> getArgs() {
-        return List.of(
+        return Collections.singletonList(
                 new OptionData(OptionType.CHANNEL, "channel", "Channel you want me to send logs to", true)
         );
     }

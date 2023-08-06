@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +64,7 @@ public class Volume implements CommandInterface {
 
     @Override
     public List<OptionData> getArgs() {
-        return List.of(
+        return Collections.singletonList(
                 new OptionData(OptionType.INTEGER, "volume", "Volume between 0 and 200 (100 is default)", true)
         );
     }

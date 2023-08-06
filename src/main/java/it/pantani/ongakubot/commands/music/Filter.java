@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +60,7 @@ public class Filter implements CommandInterface {
 
     @Override
     public List<OptionData> getArgs() {
-        return List.of(
+        return Collections.singletonList(
                 new OptionData(OptionType.STRING, "filter_name", "Choose a filter to apply to the playing track. To remove the filter do not use arguments.", false)
         );
     }

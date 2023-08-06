@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,11 +24,11 @@ public interface CommandInterface {
     String getHelp();
 
     default List<OptionData> getArgs() {
-        return List.of();
+        return Collections.unmodifiableList(Arrays.asList());
         /*
-        return Arrays.asList(
-                    new OptionData(OptionType.STRING, "arg_name", "arg_desc", true)
-            );
+        return Collections.unmodifiableList(Arrays.asList(
+                new OptionData(OptionType.STRING, "arg_name", "arg_desc", true)
+        ));
          */
     }
 }
