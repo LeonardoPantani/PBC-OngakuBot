@@ -27,3 +27,9 @@ replay_pid*
 # block local sqlite files, and local properties file
 *.db
 config.properties
+
+# idea folder
+.idea/
+
+# target folder
+target/

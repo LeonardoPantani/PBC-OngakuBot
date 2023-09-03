@@ -9,20 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Updated minimum java version (11)&#10;Updated code in database section&#10;Updated git ignore">
+    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/OngakuBot_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/OngakuBot_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/env.example" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/default_config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logo_bot.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bot_logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +148,23 @@
       <option name="project" value="LOCAL" />
       <updated>1691335373102</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config">
+      <option name="closed" value="true" />
+      <created>1693756938702</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693756938702</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config">
+      <option name="closed" value="true" />
+      <created>1693756948738</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693756948738</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -182,7 +187,8 @@
     <MESSAGE value="Added log channel" />
     <MESSAGE value="Added git ignore&#10;Translated major part of project in english&#10;Added database system, supports both mysql (remote) and sqlite (file)&#10;Removed old hashmap for log channels and replaced with db implementation&#10;&#10;TODO: create config file outside resources, finish translations and general code cleanup" />
     <MESSAGE value="Updated minimum java version (11)&#10;Updated code in database section&#10;Updated git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated minimum java version (11)&#10;Updated code in database section&#10;Updated git ignore" />
+    <MESSAGE value="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
