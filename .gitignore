@@ -29,7 +29,7 @@ replay_pid*
 config.properties
 
 # idea folder
-.idea/*
+.idea/
 
 # target folder
-target/*
+target/
