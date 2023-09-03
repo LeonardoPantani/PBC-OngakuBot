@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Updated gitignore" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,7 +161,31 @@
       <option name="project" value="LOCAL" />
       <updated>1693756948738</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated gitignore">
+      <option name="closed" value="true" />
+      <created>1693757251257</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693757251257</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated gitignore">
+      <option name="closed" value="true" />
+      <created>1693757320772</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693757320772</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updated gitignore">
+      <option name="closed" value="true" />
+      <created>1693757534790</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693757534790</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -188,7 +209,8 @@
     <MESSAGE value="Added git ignore&#10;Translated major part of project in english&#10;Added database system, supports both mysql (remote) and sqlite (file)&#10;Removed old hashmap for log channels and replaced with db implementation&#10;&#10;TODO: create config file outside resources, finish translations and general code cleanup" />
     <MESSAGE value="Updated minimum java version (11)&#10;Updated code in database section&#10;Updated git ignore" />
     <MESSAGE value="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created external config file&#10;Updated libraries&#10;Now database manager no longer creates database if mysql option is selected&#10;Now database manager shows better warnings and tips for database errors&#10;Updated default config" />
+    <MESSAGE value="Updated gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated gitignore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

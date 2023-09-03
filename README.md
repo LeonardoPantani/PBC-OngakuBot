@@ -16,7 +16,7 @@ Does not require to vote to any bot website nor buy a license for "premium" feat
 - Open the terminal
 - Run the command `java -jar ongakubot.jar`
 - Edit the `config.properties` file that has been created in the same folder of the jar file
-- Re-run the command `java -jar ongakubot.jar
+- Re-run the command `java -jar ongakubot.jar`
 
 > **Note:** By default, this bot uses [SQLite](https://www.sqlite.org/index.html) as database library. This library basically
 > creates a database file where it saves the necessary data of this bot.
