@@ -24,5 +24,6 @@
 hs_err_pid*
 replay_pid*
 
-# my env
-src/main/resources/env
+# block local sqlite files, and local properties file
+*.db
+config.properties
