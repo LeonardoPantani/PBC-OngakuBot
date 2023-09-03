@@ -41,7 +41,7 @@ public class OngakuBot {
      */
     private OngakuBot() throws InterruptedException {
         // Database initialization based on configuration
-        boolean dbStatus = false;
+        boolean dbStatus;
 
         if (getConfigValue("DB_TYPE").equalsIgnoreCase("sqlite")) {
             dbStatus = DatabaseManager.initializeDB(getConfigValue("DB_FILENAME"));
