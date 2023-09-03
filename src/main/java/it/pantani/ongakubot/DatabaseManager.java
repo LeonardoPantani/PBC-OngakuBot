@@ -97,6 +97,7 @@ public class DatabaseManager {
         executor.submit(() -> {
             try (PreparedStatement stmt = connection.prepareStatement("SELECT logChannelID FROM servers WHERE serverID = ?")) {
                 stmt.setString(1, serverID);
+
                 ResultSet resultSet = stmt.executeQuery();
                 if (resultSet.next()) {
                     String logChannelID = resultSet.getString("logChannelID");

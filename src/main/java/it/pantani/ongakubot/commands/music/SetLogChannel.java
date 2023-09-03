@@ -20,13 +20,18 @@ public class SetLogChannel implements CommandInterface {
     public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {
         GuildChannelUnion channel = args.get("channel").getAsChannel();
 
-        DatabaseManager.setLogChannel(guild.getId(), channel.asTextChannel().getId(), result -> {
-            if(result.equals("true")) {
-                hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Set log channel to `" + channel.getName() + "`.")).queue();
-            } else {
-                hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "Log channel not set due to a error.")).queue();
-            }
-        });
+        try {
+            DatabaseManager.setLogChannel(guild.getId(), channel.asTextChannel().getId(), result -> {
+                if (result.equals("true")) {
+                    hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.GREEN, "Set log channel to `" + channel.getName() + "`.")).queue();
+                } else {
+                    hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "Log channel not set due to a error.")).queue();
+
+                }
+            });
+        } catch (IllegalStateException e) { // if the user gives the command a channel type different from a text channel
+            hook.sendMessageEmbeds(Utils.createEmbed(getName(), Color.RED, "You must specify a *Text Channel* for this command to work.")).queue();
+        }
 
         return Utils.Status.HANDLE_OK;
     }
