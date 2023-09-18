@@ -49,7 +49,7 @@ public class ConsoleHandler implements Runnable {
             raw_request = readFromConsole(reader);
 
             // Ignore empty input (when the user presses enter without typing a command)
-            if (raw_request.equals("")) continue;
+            if (raw_request.isEmpty()) continue;
 
             // Split the command into the request and arguments
             String[] temp = raw_request.split(" ");
@@ -117,7 +117,6 @@ public class ConsoleHandler implements Runnable {
         System.out.format("+--------------------------------+--------------------------------+-----------------------------------------------------------------------------+%n");
 
         for (Guild g : guilds) {
-            AudioManager am = g.getAudioManager();
             GuildMusicManager gmm = PlayerManager.getInstance().getMusicManager(g);
             Member self = g.getSelfMember();
             GuildVoiceState guildVoiceState = self.getVoiceState();
@@ -318,7 +317,7 @@ public class ConsoleHandler implements Runnable {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         } catch (AWTException e) {
-            e.printStackTrace();
+            System.err.println("[!] An error has occurred: " + e.getLocalizedMessage());
         }
     }
 }

@@ -21,6 +21,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 import static it.pantani.ongakubot.Utils.formatTime;
@@ -52,10 +53,7 @@ public class Queue implements CommandInterface {
             ret.append("](").append(ati.uri).append(") by `");
             if(ati.author.length() > 76) { ret.append(ati.author, 0, 75); ret.append("..."); } else { ret.append(ati.author); }
             ret.append("` [`");
-            if(duration != null)
-                ret.append(duration);
-            else
-                ret.append("LIVE");
+            ret.append(Objects.requireNonNullElse(duration, "LIVE"));
             ret.append("`] :notes:\n");
         }
 
@@ -69,10 +67,7 @@ public class Queue implements CommandInterface {
             ret.append("](").append(info.uri).append(") by `");
             if(info.author.length() > 76) { ret.append(info.author, 0, 75); ret.append("..."); } else { ret.append(info.author); }
             ret.append("` [`");
-            if(duration != null)
-                ret.append(duration);
-            else
-                ret.append("LIVE");
+            ret.append(Objects.requireNonNullElse(duration, "LIVE"));
             ret.append("`]\n");
         }
 

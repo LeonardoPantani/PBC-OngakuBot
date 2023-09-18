@@ -7,6 +7,7 @@ package it.pantani.ongakubot;
 
 import it.pantani.ongakubot.listeners.CommandManager;
 import it.pantani.ongakubot.listeners.GuildManager;
+import it.pantani.ongakubot.listeners.LeaveListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -28,7 +29,7 @@ public class OngakuBot {
     // Variable to store the start time of the bot
     public static final long startTime = System.currentTimeMillis();
 
-    public static Properties properties = new Properties();
+    public static final Properties properties = new Properties();
 
     /**
      * Constructor for the OngakuBot class.
@@ -66,6 +67,7 @@ public class OngakuBot {
                 .setStatus(OnlineStatus.ONLINE)
                 .addEventListeners(new CommandManager())
                 .addEventListeners(new GuildManager())
+                .addEventListeners(new LeaveListener()) // TODO listener quit di utenti
                 .setActivity(Activity.listening("/help"));
 
         // Creating the JDA instance
@@ -82,7 +84,7 @@ public class OngakuBot {
         try {
             inputHandler.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.err.println("[!] An error has occurred: " + e.getLocalizedMessage());
         }
     }
 
@@ -123,6 +125,20 @@ public class OngakuBot {
         // BOT_AVATAR_URL
         toCheck = getConfigValue("BOT_AVATAR_URL");
         if(toCheck == null) { System.err.println("[!] Invalid Key: BOT_AVATAR_URL"); invalidKeys++; }
+
+        // BOT_DELAY_QUIT
+        toCheck = getConfigValue("BOT_DELAY_QUIT");
+        if(toCheck != null) {
+            try {
+                Long.parseLong(toCheck);
+            } catch(NumberFormatException e) {
+                System.err.println("[!] Invalid Key: BOT_DELAY_QUIT");
+                invalidKeys++;
+            }
+        } else {
+            System.err.println("[!] Invalid Key: BOT_DELAY_QUIT");
+            invalidKeys++;
+        }
 
         // DB_TYPE
         toCheck = getConfigValue("DB_TYPE");

@@ -19,14 +19,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
-import java.io.*;
 import java.util.*;
 import java.util.List;
 
 public class Earrape implements CommandInterface {
-    private final ByteArrayOutputStream outputStream = null;
     boolean earrapeState;
-    long dateStarted;
 
     @Override
     public Utils.Status handle(InteractionHook hook, HashMap<String, OptionMapping> args, Guild guild, Member self, Member caller) {

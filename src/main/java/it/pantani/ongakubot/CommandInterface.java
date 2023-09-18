@@ -11,8 +11,6 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,8 +22,10 @@ public interface CommandInterface {
     String getHelp();
 
     default List<OptionData> getArgs() {
-        return Collections.unmodifiableList(Arrays.asList());
+        return List.of();
         /*
+            To add if the new command has argoments:
+
         return Collections.unmodifiableList(Arrays.asList(
                 new OptionData(OptionType.STRING, "arg_name", "arg_desc", true)
         ));
