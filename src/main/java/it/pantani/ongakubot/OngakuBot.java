@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. Leonardo Pantani
+ * Copyright (c) 2024. Leonardo Pantani
  * https://github.com/LeonardoPantani
  */
 
@@ -67,7 +67,7 @@ public class OngakuBot {
                 .setStatus(OnlineStatus.ONLINE)
                 .addEventListeners(new CommandManager())
                 .addEventListeners(new GuildManager())
-                .addEventListeners(new LeaveListener()) // TODO listener quit di utenti
+                .addEventListeners(new LeaveListener())
                 .setActivity(Activity.listening("/help"));
 
         // Creating the JDA instance

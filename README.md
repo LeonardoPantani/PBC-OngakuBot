@@ -11,6 +11,11 @@ Does not require to vote to any bot website nor buy a license for "premium" feat
 - mysql-server (to be used as an external database)
 
 
+## How to generate JAR file
+- Open the MAVEN terminal and execute the following command: `mvn clean compile assembly:single`
+- The JAR file with dependencies just built is placed in the **target** directory
+
+
 ## How to use
 - Download the latest release of OngakuBot from GitHub (link)
 - Open the terminal

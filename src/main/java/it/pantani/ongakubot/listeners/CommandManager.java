@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. Leonardo Pantani
+ * Copyright (c) 2024. Leonardo Pantani
  * https://github.com/LeonardoPantani
  */
 
@@ -111,7 +111,7 @@ public class CommandManager extends ListenerAdapter {
 
         if(event.getGuild() == null) { // It's a direct message (DM).
             // Prompt the user to add the bot to a server.
-            event.getHook().sendMessageEmbeds(Utils.createEmbed(Color.RED, "I cannot play music without being in a server. Please add me to your server by clicking the button below."))
+            event.getHook().sendMessageEmbeds(Utils.createEmbed(Color.RED, "Hello! I **do not have** the permissions to work in the DM section.\n\nPlease **add me** to your server by clicking the button below."))
                     .addActionRow(
                             Button.link("https://discord.com/api/oauth2/authorize?client_id=" + OngakuBot.getConfigValue("BOT_DISCORD_ID") + "&permissions=0&scope=bot", "Add bot to a server")
                     ).queue();
@@ -129,7 +129,6 @@ public class CommandManager extends ListenerAdapter {
             // Handle the command based on the interaction details.
             cmd.handle(event.getHook(), cmd_args, event.getGuild(), event.getGuild().getSelfMember(), event.getInteraction().getMember());
         }
-
     }
 
     @Override
