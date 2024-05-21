@@ -12,11 +12,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Updated latest version of lavaplayer">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" afterDir="false" />
+    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Updated dependencies&#10;Fixed youtube not working by changing logic in PlayerManager.java">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711391634037</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated dependencies&#10;Fixed youtube not working by changing logic in PlayerManager.java">
+      <option name="closed" value="true" />
+      <created>1716335403563</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1716335403563</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -271,7 +276,8 @@
     <MESSAGE value="Readme update" />
     <MESSAGE value="Fixed bug when giving the setlogchannel command an invalid channel type" />
     <MESSAGE value="Updated latest version of lavaplayer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated latest version of lavaplayer" />
+    <MESSAGE value="Updated dependencies&#10;Fixed youtube not working by changing logic in PlayerManager.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated dependencies&#10;Fixed youtube not working by changing logic in PlayerManager.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

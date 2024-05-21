@@ -33,8 +33,9 @@ Does not require to vote to any bot website nor buy a license for "premium" feat
 
 ## Open source libraries
 Uses the [lavalink-devs/lavaplayer library](https://github.com/lavalink-devs/lavaplayer).
+Uses the [lavalink-devs/youtube-source library](https://github.com/lavalink-devs/youtube-source#).
 
 ## Donate
-[Paypal](https://paypal.me/LeonardoPantani)
+[PayPal](https://paypal.me/LeoPantani)
 
 *Thank you for your support!* 😁
