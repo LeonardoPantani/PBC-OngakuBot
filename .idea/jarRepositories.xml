@@ -7,9 +7,19 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="arbjergDev" />
+      <option name="name" value="arbjergDev" />
+      <option name="url" value="https://maven.lavalink.dev/releases" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jitpack" />
       <option name="name" value="jitpack" />
       <option name="url" value="https://jitpack.io" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="arbjergDev-snapshots" />
+      <option name="name" value="Lavalink Repository" />
+      <option name="url" value="https://maven.lavalink.dev/snapshots" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -20,6 +30,11 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ossrh-snapshots" />
+      <option name="name" value="ossrh-snapshots" />
+      <option name="url" value="https://s01.oss.sonatype.org/content/repositories/snapshots" />
     </remote-repository>
   </component>
 </project>

@@ -1,12 +1,22 @@
 package it.pantani.ongakubot.lavaplayer;
 
+import com.sedmelluq.discord.lavaplayer.container.MediaContainerRegistry;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.source.bandcamp.BandcampAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.beam.BeamAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.getyarn.GetyarnAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.nico.NicoAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.soundcloud.SoundCloudAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.yamusic.YandexMusicAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import dev.lavalink.youtube.YoutubeAudioSourceManager;
 import it.pantani.ongakubot.DatabaseManager;
 import it.pantani.ongakubot.Utils;
 import net.dv8tion.jda.api.entities.Guild;
@@ -30,8 +40,17 @@ public class PlayerManager {
         this.musicManagers = new HashMap<>();
         this.audioPlayerManager = new DefaultAudioPlayerManager();
 
-        AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
-        AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
+        // registering all possible source manager (first one is from new library)
+        this.audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new YandexMusicAudioSourceManager(true));
+        this.audioPlayerManager.registerSourceManager(SoundCloudAudioSourceManager.createDefault());
+        this.audioPlayerManager.registerSourceManager(new BandcampAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new VimeoAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new BeamAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new GetyarnAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new NicoAudioSourceManager());
+        this.audioPlayerManager.registerSourceManager(new HttpAudioSourceManager(MediaContainerRegistry.DEFAULT_REGISTRY));
     }
 
     public GuildMusicManager getMusicManager(Guild guild) {
@@ -120,6 +139,7 @@ public class PlayerManager {
             @Override
             public void loadFailed(FriendlyException exception) {
                 hook.sendMessageEmbeds(Utils.createEmbed("play", Color.RED, "Loading failed.")).queue();
+                System.out.println("[!] Error loading video '" + musicManager.audioPlayer.getPlayingTrack().getInfo().title + "': " + exception.getLocalizedMessage());
             }
         });
     }

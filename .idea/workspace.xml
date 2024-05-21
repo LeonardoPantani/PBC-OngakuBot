@@ -12,16 +12,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Fixed bug when giving the setlogchannel command an invalid channel type">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/listeners/LeaveListener.java" afterDir="false" />
+    <list default="true" id="6f3733c8-09d4-45bb-b646-83ce0fff9e79" name="Changes" comment="Updated latest version of lavaplayer">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/CommandInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/CommandInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/ConsoleHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/ConsoleHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/OngakuBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Earrape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Earrape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/commands/music/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/default_config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/default_config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/pantani/ongakubot/lavaplayer/PlayerManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,19 +39,17 @@
     &quot;assignee&quot;: &quot;LeonardoPantani&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="c3750683-5663-47ad-8a83-0189ba8fe31c" />
-        <option name="url" value="https://github.com/LeonardoPantani/PBC-OngakuBot.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LeonardoPantani/PBC-OngakuBot.git&quot;,
+    &quot;accountId&quot;: &quot;c3750683-5663-47ad-8a83-0189ba8fe31c&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -76,6 +69,9 @@
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
     &quot;JAR Application.JAR FILE.executor&quot;: &quot;Run&quot;,
     &quot;Maven.OngakuBot [clean,compile,assembly:single].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OngakuBot [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OngakuBot [dependency:tree,-Ddetail=true].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OngakuBot.executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
@@ -85,8 +81,8 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/leona/Downloads/PBC-OngakuBot/target/OngakuBot-1.4.2-jar-with-dependencies.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leona/Downloads/lavaplayer-6b2abee57a9136cf9bac5e02cc21fc214f44a47b-20240518.204022-1.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.3096491&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
@@ -110,10 +106,14 @@
     <option name="myCommands">
       <command value="mvn package" />
       <command value="mvn clean" />
+      <command value="mvn clean package " />
+      <command value="mvn dependency:tree -Ddetail=true" />
+      <command value="mvn clean package" />
+      <command value="mvn " />
       <command value="mvn clean compile assembly:single" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.JAR FILE">
+  <component name="RunManager" selected="Application.Java">
     <configuration name="Java" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-11" />
       <option name="MAIN_CLASS_NAME" value="it.pantani.ongakubot.OngakuBot" />
@@ -123,7 +123,7 @@
       </method>
     </configuration>
     <configuration name="JAR FILE" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/target/OngakuBot-1.4.2-jar-with-dependencies.jar" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/OngakuBot-1.4.3-jar-with-dependencies.jar" />
       <option name="WORKING_DIRECTORY" value="C:\Users\leona\Downloads\PBC-OngakuBot\target" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
@@ -145,14 +145,6 @@
       <item itemvalue="Application.Java" />
       <item itemvalue="JAR Application.JAR FILE" />
     </list>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-11.0.22-corretto-11.0.22-4caba194b151-868cef46" />
-        <option value="jdk-22-openjdk-22-3183f394aec4-bad0321e" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -243,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693764921047</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated latest version of lavaplayer">
+      <option name="closed" value="true" />
+      <created>1711391634037</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1711391634037</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -270,9 +270,19 @@
     <MESSAGE value="Updated gitignore" />
     <MESSAGE value="Readme update" />
     <MESSAGE value="Fixed bug when giving the setlogchannel command an invalid channel type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug when giving the setlogchannel command an invalid channel type" />
+    <MESSAGE value="Updated latest version of lavaplayer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated latest version of lavaplayer" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/dev/arbjerg/lavaplayer/6b2abee57a9136cf9bac5e02cc21fc214f44a47b-SNAPSHOT/lavaplayer-6b2abee57a9136cf9bac5e02cc21fc214f44a47b-20240518.204022-1.jar!/com/sedmelluq/discord/lavaplayer/source/AudioSourceManagers.class</url>
+          <line>40</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((BufferedInputStream)defaultConfigStream).in" custom="java.io.BufferedInputStream" />
